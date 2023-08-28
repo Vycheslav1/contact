@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 
 import { Div, Title, ContactsTitle } from './PhoneBookStyles.js';
 
@@ -17,22 +17,22 @@ const PhoneBook = () => {
 
   let changedItems = [];
 
-  let items = useRef(JSON.parse(localStorage.getItem('phonebook')));
+  let items = JSON.parse(localStorage.getItem('phonebook'));
 
   useEffect(() => {
-    items.current = JSON.parse(localStorage.getItem('phonebook'));
+    items = JSON.parse(localStorage.getItem('phonebook'));
   }, [contacts]);
 
-  changedItems = [...items.current];
+  changedItems = [...items];
 
   if (filter !== '') {
-    changedItems = items.current.filter(item => item.name.includes(filter));
+    changedItems = items.filter(item => item.name.includes(filter));
   }
 
   return (
     <Div>
       <Title>Phonebook</Title>
-      <ContactForm stateSubmit={setContacts} persons={items.current} />
+      <ContactForm stateSubmit={setContacts} persons={items} />
       <ContactsTitle>Contacts</ContactsTitle>
       <Filter changeState={setFilter} />
       <ContactList persons={changedItems} changeList={setContacts} />
