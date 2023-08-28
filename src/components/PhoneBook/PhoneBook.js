@@ -23,7 +23,7 @@ const PhoneBook = () => {
     items.current = JSON.parse(localStorage.getItem('phonebook'));
   }, [contacts]);
 
-  changedItems = [...items];
+  changedItems = [...items.current];
 
   if (filter !== '') {
     changedItems = items.current.filter(item => item.name.includes(filter));
