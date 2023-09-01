@@ -11,13 +11,7 @@ const ContactList = ({ persons, changeList }) => (
             <Span>{person.name}</Span>
             <Span>:{person.number}</Span>
             <Span>
-              <Delete
-                id={index}
-                onClick={e => {
-                  changeList(persons.splice(index, 1));
-                  localStorage.setItem('phonebook', JSON.stringify(persons));
-                }}
-              >
+              <Delete id={index} onClick={() => changeList(index)}>
                 Delete
               </Delete>
             </Span>

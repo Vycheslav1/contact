@@ -13,7 +13,7 @@ const Filter = ({ changeState }) => (
       id={InputIdFilter}
       type="text"
       name="filtration"
-      onInput={e => changeState(e.target.value)}
+      onInput={() => changeState(InputIdFilter)}
     />
   </Label>
 );

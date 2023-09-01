@@ -15,32 +15,7 @@ const InputIdText = nanoid();
 const InputIdTel = nanoid();
 
 const ContactForm = ({ stateSubmit, persons }) => (
-  <Form
-    onSubmit={evt => {
-      evt.preventDefault();
-      let skip = 0;
-      persons.forEach(person => {
-        if (person.name === evt.target[0].value) {
-          alert(`${evt.target[0].value} is already in contacts`);
-          skip = 1;
-        }
-      });
-      if (skip === 0) {
-        const element = {
-          id: 'id-' + (persons.length + 1),
-          name: evt.target[0].value,
-          number: evt.target[1].value,
-        };
-
-        persons.splice(persons.length, 0, element);
-        localStorage.setItem('phonebook', JSON.stringify(persons));
-      }
-
-      evt.target.reset();
-
-      stateSubmit(persons);
-    }}
-  >
+  <Form onSubmit={evt => stateSubmit(evt, InputIdText, InputIdTel)}>
     <Label htmlFor={InputIdText}>
       Name
       <InputText

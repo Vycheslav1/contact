@@ -30,14 +30,45 @@ const PhoneBook = () => {
   if (filter !== '') {
     changedItems = items.filter(item => item.name.includes(filter));
   }
+  const handleChangeList = index => {
+    setContacts(items.splice(index, 1));
+    localStorage.setItem('phonebook', JSON.stringify(items));
+  };
 
+  const handleChange = id => {
+    setFilter(document.getElementById(id).value);
+  };
+
+  const handleSubmit = (evt, id, tl) => {
+    evt.preventDefault();
+    let skip = 0;
+    items.forEach(item => {
+      if (item.name === document.getElementById(id).value) {
+        alert(`${document.getElementById(id).value} is already in contacts`);
+        skip = 1;
+      }
+    });
+    if (skip === 0) {
+      const element = {
+        id: 'id-' + (items.length + 1),
+        name: document.getElementById(id).value,
+        number: document.getElementById(tl).value,
+      };
+
+      setContacts(items.splice(items.length, 0, element));
+
+      localStorage.setItem('phonebook', JSON.stringify(items));
+    }
+
+    evt.target.reset();
+  };
   return (
     <Div>
       <Title>Phonebook</Title>
-      <ContactForm stateSubmit={setContacts} persons={items} />
+      <ContactForm stateSubmit={handleSubmit} persons={items} />
       <ContactsTitle>Contacts</ContactsTitle>
-      <Filter changeState={setFilter} />
-      <ContactList persons={changedItems} changeList={setContacts} />
+      <Filter changeState={handleChange} />
+      <ContactList persons={changedItems} changeList={handleChangeList} />
     </Div>
   );
 };
