@@ -15,7 +15,7 @@ const InputIdText = nanoid();
 const InputIdTel = nanoid();
 
 const ContactForm = ({ stateSubmit, persons }) => (
-  <Form onSubmit={evt => stateSubmit(evt, InputIdText, InputIdTel)}>
+  <Form onSubmit={evt => stateSubmit(evt)}>
     <Label htmlFor={InputIdText}>
       Name
       <InputText
