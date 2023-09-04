@@ -14,12 +14,32 @@ const InputIdText = nanoid();
 
 const InputIdTel = nanoid();
 
+const personId = nanoid();
+
 const ContactForm = ({ stateSubmit, persons }) => (
-  <Form onSubmit={evt => stateSubmit(evt)}>
+  <Form
+    onSubmit={evt => {
+      evt.preventDefault();
+
+      if (persons.find(person => person.name === evt.target[0].value)) {
+        alert(`${evt.target[0].value} is already in contacts`);
+      } else {
+        stateSubmit([
+          ...persons,
+          {
+            id: personId,
+            name: evt.target[0].value,
+            number: evt.target[1].value,
+          },
+        ]);
+      }
+
+      evt.target.reset();
+    }}
+  >
     <Label htmlFor={InputIdText}>
       Name
       <InputText
-        id={InputIdText}
         type="text"
         name="name"
         pattern="^[a-zA-Zа-яА-Я]+(([' \-][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -30,7 +50,6 @@ const ContactForm = ({ stateSubmit, persons }) => (
     <Label htmlFor={InputIdTel}>
       Number
       <InputTel
-        id={InputIdTel}
         type="tel"
         name="number"
         pattern="\+?\d{1,4}?[ .\-\s]?\(?\d{1,3}?\)?[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,9}"

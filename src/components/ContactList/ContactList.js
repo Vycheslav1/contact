@@ -11,7 +11,12 @@ const ContactList = ({ persons, changeList }) => (
             <Span>{person.name}</Span>
             <Span>:{person.number}</Span>
             <Span>
-              <Delete id={index} onClick={() => changeList(index)}>
+              <Delete
+                id={index}
+                onClick={() => {
+                  changeList(persons.filter((person, ind) => ind !== index));
+                }}
+              >
                 Delete
               </Delete>
             </Span>
