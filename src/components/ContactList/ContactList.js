@@ -4,21 +4,14 @@ import PropTypes from 'prop-types';
 
 const ContactList = ({ persons, changeList }) => (
   <List>
-    {persons.map((person, index) => (
+    {persons.map(person => (
       <Li key={person.id}>
         <Wrap>
           <Span>
             <Span>{person.name}</Span>
             <Span>:{person.number}</Span>
             <Span>
-              <Delete
-                id={index}
-                onClick={() => {
-                  changeList(persons.filter((person, ind) => ind !== index));
-                }}
-              >
-                Delete
-              </Delete>
+              <Delete onClick={e => changeList(person.id)}>Delete</Delete>
             </Span>
           </Span>
         </Wrap>
