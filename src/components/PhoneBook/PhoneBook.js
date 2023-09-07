@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { Div, Title, ContactsTitle } from './PhoneBookStyles.js';
 
@@ -15,6 +15,10 @@ const PhoneBook = () => {
     contacts: JSON.parse(localStorage.getItem('phonebook')),
     filter: '',
   });
+
+  useEffect(() => {
+    localStorage.setItem('phonebook', JSON.stringify(data.contacts));
+  }, [data.contacts]);
 
   const handleChangeList = id => {
     setData(prev => ({
